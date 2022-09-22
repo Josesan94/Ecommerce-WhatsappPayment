@@ -1,9 +1,10 @@
 
 import { GetStaticProps } from 'next';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import api from '../product/api';
 import { Product } from '../product/types';
-import {Button, Flex, Grid, Link, Stack, Text } from '@chakra-ui/react';
+import {Button, Flex, Grid, Image, Link, Stack, Text } from '@chakra-ui/react';
+import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion'
 
 interface Props {
   products: Product[];
@@ -20,6 +21,7 @@ function parseCurrency(value:number): string {
 const IndexRoute: React.FC<Props> = ({products}) => {
 
   const [cart,setCart] = useState<Product[]>([])
+  const [selectedImage, setSelectedImage] = useState<string>(null)
 
   // solo se ejecutara cuando cambie el carrito (cart)
   const text = React.useMemo(
@@ -33,46 +35,105 @@ const IndexRoute: React.FC<Props> = ({products}) => {
     [cart],
   );
 
-  console.log(text)
+  useEffect(()=> {
+    setTimeout(()=> setCart([]), 3000);
+  }, [cart]);
   
 
   return (
-    <Stack spacing={6} borderRadius="md" padding={4} >
-      <Grid gridGap={6} templateColumns="repeat(auto-fill,minmax(240px, 1fr))">
-      {products.map(product => (
-      <Stack 
-      spacing={3} 
-      backgroundColor="gray.100" 
-      borderRadius="md" 
-      padding={4}
-      key={product.id}>
-        <Stack spacing={3}>
-          <Text>{product.title}</Text>
-          <Text color="green.500" fontSize="sm">{parseCurrency(product.price)}</Text>
+    <>
+      <AnimateSharedLayout>
+        <Stack spacing={6} borderRadius="md" padding={4}>
+          <Grid
+            gridGap={6}
+            templateColumns="repeat(auto-fill,minmax(240px, 1fr))"
+          >
+            {products.map((product) => (
+              <Stack
+                spacing={3}
+                backgroundColor="gray.100"
+                borderRadius="md"
+                padding={4}
+                key={product.id}
+              >
+                <Image
+                  alt={product.title}
+                  as={motion.img}
+                  cursor="pointer"
+                  layoutId={product.image}
+                  borderRadius="md"
+                  maxHeight={128}
+                  objectFit="cover"
+                  src={product.image}
+                  onClick={() => setSelectedImage(product.image)}
+                />
+                <Stack spacing={3}>
+                  <Text>{product.title}</Text>
+                  <Text color="green.500" fontSize="sm">
+                    {parseCurrency(product.price)}
+                  </Text>
+                </Stack>
+                <Button
+                  colorScheme="primary"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCart((cart) => cart.concat(product))}
+                >
+                  Agregar
+                </Button>
+              </Stack>
+            ))}
+          </Grid>
+          <AnimatePresence>
+            {Boolean(cart.length) && (
+              <Flex
+                initial={{scale: 0}}
+                animate={{scale: 1}}
+                exit={{scale: 0}}
+                as={motion.div}
+                bottom={4}
+                justifyContent="center"
+                alignItems={"center"}
+              >
+                <Button
+                  padding={4}
+                  width="fit-content"
+                  as={Link}
+                  href={`https://wa.me/38534543534?text=${encodeURIComponent(
+                    text
+                  )}`}
+                  isExternal
+                  colorScheme="primary"
+                >
+                  Completar pedido ({cart.length} productos)
+                </Button>
+              </Flex>
+            )}
+          </AnimatePresence>
         </Stack>
-        <Button 
-        colorScheme="primary" 
-        variant="outline" 
-        size="sm"
-        onClick={()=> setCart(cart => cart.concat(product))}>Agregar</Button>
-      </Stack>))}
-    </Grid>
-    {Boolean(cart.length) && ( 
-      <Flex bottom={4} justifyContent="center" alignItems={"center"} >
-        <Button 
-        padding={4}
-        width="fit-content"
-        as={Link} 
-        href={`https://wa.me/38534543534?text=${encodeURIComponent(text)}`} 
-        isExternal 
-        colorScheme="whatsapp"
-        >
-        Completar pedido ({cart.length} productos) 
-        </Button>
-      </Flex>
-    )} 
-    </Stack>
-    )
+        <AnimatePresence>
+          {selectedImage && (
+            <Flex
+              key="backdrop"
+              alignItems="center"
+              as={motion.div}
+              backgroundColor="rgba(0,0,0,0.5)"
+              height="100%"
+              justifyContent="center"
+              layoutId={selectedImage}
+              position="fixed"
+              top={0}
+              left={0}
+              width="100%"
+              onClick={() => setSelectedImage(null)}
+            >
+              <Image alt="image" key="imagen" src={selectedImage} width="50%" />
+            </Flex>
+          )}
+        </AnimatePresence>
+      </AnimateSharedLayout>
+    </>
+  );
 };
 
 
