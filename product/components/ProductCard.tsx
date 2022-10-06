@@ -48,7 +48,7 @@ const ProductCard: React.FC<Props> = ({products, setCart, setSelectedImage})=> {
             />
             <Stack justifyContent="space-between" spacing={1} width="100%">
               <Stack spacing={1}>
-                <Text fontWeight="500">{product.title}</Text>
+                <Text fontSize="lg" fontWeight="500">{product.title}</Text>
                 <Text color="gray.500" fontSize="sm">
                   {product.description}
                 </Text>
