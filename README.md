@@ -1,3 +1,7 @@
+Ecommerce App creada con NextJs y Chakra UI como stack de estilos. Por el momento, para el manejo de la base de datos se esta utilizando una google sheet.
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
