@@ -1,6 +1,7 @@
 
-import React, {useEffect, useState} from 'react'
+import { Button } from '@chakra-ui/react';
 import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion'
+import Link from 'next/link';
 import Home from '../components/Home';
 
 
@@ -23,9 +24,7 @@ const IndexRoute: React.FC = () => {
 
   return (
     <>
-      <AnimateSharedLayout>
         <Home/>
-      </AnimateSharedLayout>
     </>
   );
 };

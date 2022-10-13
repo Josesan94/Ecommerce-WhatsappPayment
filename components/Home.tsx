@@ -2,10 +2,11 @@ import React from "react";
 import { NextPage } from "next";
 import { Box, Button, Container, Stack } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Home: React.FC = () => {
 
-
+  const router = useRouter();
 
   return (
     <>
@@ -14,7 +15,11 @@ const Home: React.FC = () => {
           <h4>Bievenido a Moreira Hnos</h4>
             <Stack justifyContent="space-around">
             <Button>
-            <Link href="/products"> Dirigirse a radiadores</Link>
+            <Link href="/products"> 
+            <a>
+            Dirigirse a radiadores
+            </a>
+            </Link>
             </Button>
             <Button>
             <Link href="/404"> Dirigirse a paneles</Link>

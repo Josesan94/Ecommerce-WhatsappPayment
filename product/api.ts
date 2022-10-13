@@ -2,7 +2,6 @@ import axios from "axios";
 import { Product } from "./types"
 import Papa from 'papaparse'
 import { INFORMATION } from "../app/constants";
-import {Option as IOption, Product as IProduct} from "./types";
 
 
 
