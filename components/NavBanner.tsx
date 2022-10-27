@@ -1,34 +1,30 @@
 import React from 'react'
-import { ChakraProvider, Container,Stack,  VStack, Image, Heading, Text, Box, Divider, Link, Flex } from '@chakra-ui/react'
+import { ChakraProvider, Container, Stack, VStack, Image, Heading, Text, Box, Divider, Link, Flex } from '@chakra-ui/react'
 
 const INFORMATION = {
-  avatar: "https://res.cloudinary.com/dmngxejbu/image/upload/v1662849506/cld-sample-4.jpg",
-  banner: "https://res.cloudinary.com/dmngxejbu/image/upload/v1662849506/cld-sample-4.jpg",
-  title: "Moreira hnos.",
-  description: "Galardonada pizza estilo New Haven en Palermo SOHO.",
-  phone: `5491141414141`,
+  avatar: 'https://res.cloudinary.com/dmngxejbu/image/upload/v1662849506/cld-sample-4.jpg',
+  banner: 'https://res.cloudinary.com/dmngxejbu/image/upload/v1662849506/cld-sample-4.jpg',
+  title: 'Moreira hnos.',
+  description: 'Galardonada pizza estilo New Haven en Palermo SOHO.',
+  phone: '5491141414141',
   social: [
     {
-      name: "instagram",
-      url: `https://instagram.com/goncy.js`,
+      name: 'instagram',
+      url: 'https://instagram.com/goncy.js'
     },
     {
-      name: "whatsapp",
-      url: `https://wa.me/5491141414141`,
-    },
-  ],
-};
+      name: 'whatsapp',
+      url: 'https://wa.me/5491141414141'
+    }
+  ]
+}
 
-
-
-const HomeLayout:React.FC = () => {
-  
-    
+const HomeLayout: React.FC = () => {
   return (
     <>
             <Stack marginBottom={4} spacing={4}>
-              <Image 
-                alt="" 
+              <Image
+                alt=""
                 borderRadius="lg"
                 height="100%"
                 maxHeight={64}
@@ -37,28 +33,28 @@ const HomeLayout:React.FC = () => {
               />
               <Stack
                 alignItems="center"
-                direction={{base: "column", sm: "row"}}
-                spacing={{base: 3, sm: 6}}
+                direction={{ base: 'column', sm: 'row' }}
+                spacing={{ base: 3, sm: 6 }}
               >
                 <Box
                   backgroundColor="white"
                   borderRadius={9999}
-                  marginTop={{base: -12, sm: -16}}
-                  minWidth={{base: 24, sm: 32}}
+                  marginTop={{ base: -12, sm: -16 }}
+                  minWidth={{ base: 24, sm: 32 }}
                   padding={1}
                 >
                   <Image
                     alt=""
                     borderRadius={9999}
-                    height={{base: 24, sm: 32}}
+                    height={{ base: 24, sm: 32 }}
                     src={INFORMATION.avatar}
-                    width={{base: 24, sm: 32}}
+                    width={{ base: 24, sm: 32 }}
                   />
                 </Box>
                 <Stack
-                  alignItems={{base: "center", sm: "flex-start"}}
+                  alignItems={{ base: 'center', sm: 'flex-start' }}
                   spacing={3}
-                  textAlign={{base: "center", sm: "left"}}
+                  textAlign={{ base: 'center', sm: 'left' }}
                 >
                   <Stack spacing={0}>
                     <Heading>{INFORMATION.title}</Heading>

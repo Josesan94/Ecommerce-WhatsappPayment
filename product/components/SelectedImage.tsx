@@ -1,14 +1,13 @@
-import React,{Dispatch, SetStateAction} from 'react'
-import { Flex, Image} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
+import React, { Dispatch, SetStateAction } from 'react'
+import { Flex, Image } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 
 interface Props {
-    selectedImage: string;
-    setSelectedImage: Dispatch<SetStateAction<string>>
-  };
+  selectedImage: string
+  setSelectedImage: Dispatch<SetStateAction<string>>
+};
 
-const SelectedImage: React.FC<Props> = ({selectedImage, setSelectedImage}) => {
-
+const SelectedImage: React.FC<Props> = ({ selectedImage, setSelectedImage }) => {
   return (
     <>
       <Flex
@@ -28,7 +27,7 @@ const SelectedImage: React.FC<Props> = ({selectedImage, setSelectedImage}) => {
         <Image alt="image" key="imagen" src={selectedImage} width="50%" />
       </Flex>
     </>
-  );
+  )
 }
 
 export default SelectedImage

@@ -1,34 +1,47 @@
+import React, { useEffect } from "react"
+import { loginWithGoogle } from "../firebase/client"
+import { useRouter } from "next/router"
+import { Button } from "@chakra-ui/react"
+import useUser from "hooks/useUser"
 
-import { Button } from '@chakra-ui/react';
-import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion'
-import Link from 'next/link';
-import Home from '../components/Home';
-
-
+const USER_STATES = {
+  "NOT_LOGGED": null,
+  "NOT_KNOWN": undefined
+}
 
 const IndexRoute: React.FC = () => {
+  const router = useRouter()
+  const user = useUser()
 
 
 
-  // const total = React.useMemo(()=> {
-  //   if(!cart.length) return; 
-  //   if (cart) {cart.reduce((total:any, product:any)=> total + product.price * product.quantity)
-  //   }}
-  // , [cart])
+ // montamos otro useEffect para q cuando cambie el usuario, lo redirija al home
+  useEffect(() => {
+    user && router.replace('/home')
+  }, [user])
 
-  // //const parsedTotal = parseCurrency(total)
+  const handleLogin = () => {
+    loginWithGoogle()
+      .catch((e) => console.log(e))
+  }
 
-  // const quantity = React.useMemo(()=> cart.reduce((acc,item) => acc + item, 0), [cart])
-
-  
 
   return (
     <>
-        <Home/>
+      {user === USER_STATES.NOT_LOGGED && <Button onClick={handleLogin}>Logeate</Button>}
+      {user === USER_STATES.NOT_KNOWN && <span> loading...</span>}
     </>
-  );
-};
+  )
+}
 
+export default IndexRoute
 
+// const total = React.useMemo(()=> {
+//   if(!cart.length) return;
+//   if (cart) {cart.reduce((total:any, product:any)=> total + product.price * product.quantity)
+//   }}
+// , [cart])
 
-export default IndexRoute;
+// //const parsedTotal = parseCurrency(total)
+
+// const quantity = React.useMemo(()=> cart.reduce((acc,item) => acc + item, 0), [cart])

@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  border-radious: 9999px;
+  height: 50px;
+  width: 50px;
+}

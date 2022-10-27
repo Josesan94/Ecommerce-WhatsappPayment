@@ -1,26 +1,22 @@
-import React, {useState, useEffect, Dispatch, SetStateAction} from 'react'
-import { Product } from '../../product/types';
-import {Button, Flex, Grid, Image, Link, Stack, Text } from '@chakra-ui/react';
-import {motion, AnimatePresence, AnimateSharedLayout} from 'framer-motion';
-
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { Product } from '../../product/types'
+import { Button, Flex, Grid, Image, Link, Stack, Text } from '@chakra-ui/react'
+import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion'
 
 interface Props {
-  products: Product[];
-  setCart: Dispatch<SetStateAction<Product[]>>;
+  products: Product[]
+  setCart: Dispatch<SetStateAction<Product[]>>
   setSelectedImage: Dispatch<SetStateAction<string>>
 };
 
-function parseCurrency(value:any): string {
+function parseCurrency (value: any): string {
   return value.toLocaleString('es-AR', {
-    style:"currency",
-    currency:"ARS"
+    style: 'currency',
+    currency: 'ARS'
   })
 }
 
-
-const ProductCard: React.FC<Props> = ({products, setCart, setSelectedImage})=> {
-
-  
+const ProductCard: React.FC<Props> = ({ products, setCart, setSelectedImage }) => {
   return (
     <>
       {products.map((product) => (
@@ -69,7 +65,7 @@ const ProductCard: React.FC<Props> = ({products, setCart, setSelectedImage})=> {
         </Stack>
       ))}
     </>
-  );
+  )
 }
 
 export default ProductCard

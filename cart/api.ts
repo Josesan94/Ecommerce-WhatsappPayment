@@ -1,4 +1,4 @@
-import axios from "axios";
-import Papa from "papaparse";
+import axios from 'axios'
+import Papa from 'papaparse'
 
-import {Field as IField, RadioField, TextField} from "./types";
+import { Field as IField, RadioField, TextField } from './types'

@@ -1,18 +1,18 @@
 
-//usaremos la api de chakra para generar nuestros propios themes
+// usaremos la api de chakra para generar nuestros propios themes
 
-import { extendTheme, theme } from "@chakra-ui/react";
-import { INFORMATION } from "./app/constants";
+import { extendTheme, theme } from '@chakra-ui/react'
+import { INFORMATION } from './app/constants'
 
 export default extendTheme({
-    colors:{
-      primary: theme.colors[INFORMATION.color]
-    },
-    styles:{
-      global:{
-        body: {
-          backgroundColor:"primary.50"
-        }
+  colors: {
+    primary: theme.colors[INFORMATION.color]
+  },
+  styles: {
+    global: {
+      body: {
+        backgroundColor: 'primary.50'
       }
     }
+  }
 })
