@@ -123,12 +123,12 @@ const CartDrawer: React.FC<Props> = ({
               padding={4}
               width="fit-content"
               as={Link}
-              // href={`https://wa.me/+5493816807711?text=${encodeURIComponent(
-              //   text
-              // )}`}
-              // isExternal
+              href={`https://wa.me/+5493816807711?text=${encodeURIComponent(
+                text
+              )}`}
+              isExternal
               colorScheme="primary"
-              onClick={handleCart}
+              // onClick={handleCart}
             >
               Completar pedido
             </Button>

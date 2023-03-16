@@ -24,5 +24,4 @@ export default function useUser() {
     user === USER_STATES.NOT_LOGGED && router.push('/')
   }, [user])
   return user
-
 }

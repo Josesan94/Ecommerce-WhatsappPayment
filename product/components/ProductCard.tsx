@@ -1,12 +1,15 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { Product } from '../../product/types'
-import { Button, Flex, Grid, Image, Link, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, Grid, Image, Link, Modal, ModalContent, Stack, Text, useDisclosure, ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton, } from '@chakra-ui/react'
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion'
+import SelectedProduct from './SelectedImage'
 
 interface Props {
   products: Product[]
   setCart: Dispatch<SetStateAction<Product[]>>
-  setSelectedImage: Dispatch<SetStateAction<string>>
 };
 
 function parseCurrency (value: any): string {
@@ -16,21 +19,20 @@ function parseCurrency (value: any): string {
   })
 }
 
-const ProductCard: React.FC<Props> = ({ products, setCart, setSelectedImage }) => {
+const ProductCard: React.FC<Props> = ({ products, setCart }) => {
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
       {products.map((product) => (
         <Stack
           alignItems="center"
-          borderColor="gray.100"
-          borderRadius="md"
-          borderWidth={1}
           data-testid="product"
           direction="row"
-          justifyContent="space-between"
+          justifyContent="center"
           key={product.id}
         >
-          <Stack direction="row" padding={2} spacing={4} width="100%">
+          <Stack direction="column" alignItems="center" padding={2} spacing={4} width="75%">
             <Image
               alt={product.title}
               as={motion.img}
@@ -38,23 +40,26 @@ const ProductCard: React.FC<Props> = ({ products, setCart, setSelectedImage }) =
               layoutId={product.image}
               borderRadius="md"
               maxHeight={128}
+              width="75%"
               objectFit="cover"
               src={product.image}
-              onClick={() => setSelectedImage(product.image)}
+              onClick={onOpen}
             />
-            <Stack justifyContent="space-between" spacing={1} width="100%">
-              <Stack spacing={1}>
-                <Text fontSize="lg" fontWeight="500">{product.title}</Text>
-                <Text color="gray.500" fontSize="sm">
+            <Stack 
+            direction="column" alignItems="center" spacing={2} width="100%">
+              <Stack spacing={1} alignItems="center" >
+                <Text fontSize="25px" fontWeight="500">{product.title}</Text>
+                <Text color="gray.500" fontSize="md">
                   {product.description}
                 </Text>
-              </Stack>
-              <Stack>
-                <Text color="green.500" fontSize="sm" fontWeight="500">
+                <Text color="yellow.500" fontSize="20px" fontWeight="500">
                   {parseCurrency(product.price)}
                 </Text>
+              </Stack>
+              <Stack width="100%">
+                
                 <Button
-                  size="xs"
+                  size="md"
                   onClick={() => setCart((cart) => cart.concat(product))}
                 >
                   Agregar
@@ -62,6 +67,20 @@ const ProductCard: React.FC<Props> = ({ products, setCart, setSelectedImage }) =
               </Stack>
             </Stack>
           </Stack>
+          {/* <Modal  isOpen={isOpen} onClose={onClose}>
+              <ModalContent>
+                    <ModalHeader>Modal Title</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  Modal
+          </ModalBody>
+              </ModalContent>
+          </Modal> */}
+            <SelectedProduct
+            isOpen={isOpen}
+            onClose={onClose}
+            product={product}
+          />
         </Stack>
       ))}
     </>

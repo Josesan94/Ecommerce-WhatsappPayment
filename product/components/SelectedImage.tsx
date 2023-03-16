@@ -1,33 +1,68 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Flex, Image } from '@chakra-ui/react'
+import { Flex, Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Stack,
+  Text,
+  Button,
+} from '@chakra-ui/react'
 import { motion } from 'framer-motion'
+import { Product } from 'product/types'
 
 interface Props {
-  selectedImage: string
-  setSelectedImage: Dispatch<SetStateAction<string>>
+  isOpen:boolean,
+  onClose:()=> void,
+  product:Product
 };
 
-const SelectedImage: React.FC<Props> = ({ selectedImage, setSelectedImage }) => {
+const SelectedProduct: React.FC<Props> = (props) => {
+  const { isOpen, onClose, product } = props
+
+  const Overlay = () => (
+    <ModalOverlay
+      bg='blackAlpha.300'
+      backdropFilter='blur(1px) hue-rotate(90deg)'
+    />
+  )
+
+
   return (
-    <>
-      <Flex
-        key="backdrop"
-        alignItems="center"
+    <> 
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <Overlay/>
+      <ModalContent>
+        <Stack direction="column" alignItems="initial" justifyContent="space-around" gap={3} marginLeft={4}>
+        <ModalHeader>{product.title}</ModalHeader>
+        <ModalBody>
+      <Stack
+        gap={4}
+        alignItems="initial"
         as={motion.div}
-        backgroundColor="rgba(0,0,0,0.5)"
         height="100%"
-        justifyContent="center"
-        layoutId={selectedImage}
-        position="fixed"
-        top={0}
-        left={0}
         width="100%"
-        onClick={() => setSelectedImage(null)}
       >
-        <Image alt="image" key="imagen" src={selectedImage} width="50%" />
-      </Flex>
+        <Image alt="image" key="imagen" src={product.image} width="50%" />
+        <Text>{product.description}</Text>
+      </Stack>
+        </ModalBody>
+        </Stack>
+        <ModalFooter mr={150}>
+
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+      </ModalContent>
+      
+      </Modal>
     </>
   )
 }
 
-export default SelectedImage
+export default SelectedProduct;

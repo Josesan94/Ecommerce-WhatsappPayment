@@ -30,5 +30,7 @@ module.exports = {
     "@typescript-eslint/promise-function-async": RULES.OFF,
     "@typescript-eslint/restrict-template-expressions": RULES.OFF,
     "@typescript-eslint/restrict-plus-operands": RULES.OFF,
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off",
   },
 }

@@ -19,25 +19,15 @@ const firebaseConfig = {
 const db = firebase.firestore();
 
 // mapeamos el usuario
-const mapUserFromFirebaseAuthToUser = (user: any) => {
-  const { photoURL, displayName, email,
 
-  } = user
-  return {
-    username: displayName,
-    email,
-    avatar: photoURL
-
-  }
-}
 
 // cambiamos el estado de la autenticacion del usuario
 export const onAuthStateChanged = (onChange: any) => {
   return firebase
     .auth()
     .onAuthStateChanged(user => {
-      const normalizedUser = user ? 
-      mapUserFromFirebaseAuthToUser(user) : null
+      // eslint-disable-next-line no-unneeded-ternary
+      const normalizedUser = user ? user : null
 
       onChange(normalizedUser)
 
@@ -52,20 +42,33 @@ export const loginWithGoogle = async () => {
   return await firebase
     .auth()
     .signInWithPopup(googleProvider)
+
 }
 
-
-export const createTransaction = ({email,userName,products, text}) => {
-  return db.collection('transactions').add({
-    products,
-    email,
-    userName,
-    createdAt: new Date(),
-    text
-  }).then((docRef) => {
+// creamos la funcion para crear transacciones con datos  
+export const createTransaction = async ({email,userName,products, text}) => {
+  try {
+    const docRef = await db.collection('transactions').add({
+      products,
+      email,
+      userName,
+      createdAt: new Date(),
+      text
+    });
     console.log("Document written with ID: ", docRef.id);
-})
-.catch((error) => {
+  } catch (error) {
     console.error("Error adding document: ", error);
-});
+  }
 }
+// 7bNWudUJ1gJEeq7vmZx2
+// creamos la funcion para obtener los productos del storage
+// snapshot: objeto de firebase que nos permitira obtener los  resultados
+// export const fetchAllProducts = () => {
+//     return db.collection("transactions")
+//     .get()
+//     .then(snapshot => {
+//       return snapshot.docs.map(doc => {
+
+//       })
+//     })
+// }

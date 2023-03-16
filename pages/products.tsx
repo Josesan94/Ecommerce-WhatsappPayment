@@ -4,13 +4,14 @@ import React, { useState } from "react"
 import api from "../product/api"
 import { Product } from "../product/types"
 import ProductCard from "../product/components/ProductCard"
-import SelectedImage from "../product/components/SelectedImage"
+import SelectedProduct from "../product/components/SelectedImage"
 import {
   Button,
   Flex,
   Grid,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react"
 import { motion, AnimatePresence } from "framer-motion"
 import CartDrawer from "../cart/components/cartDrawer/cartDrawer"
@@ -32,6 +33,7 @@ const ProductsList: React.FC<Props> = ({ products }) => {
   const [selectedImage, setSelectedImage] = useState<string>(null)
   const [isCartOpen, toggleCart] = React.useState<boolean>(false)
 
+
   const user = useUser()
 
   return (
@@ -49,7 +51,6 @@ const ProductsList: React.FC<Props> = ({ products }) => {
             <ProductCard
               products={products}
               setCart={setCart}
-              setSelectedImage={setSelectedImage}
             />
           </Grid>
         ) : (
@@ -104,14 +105,6 @@ const ProductsList: React.FC<Props> = ({ products }) => {
           )}
         </AnimatePresence>
       </Stack>
-      <AnimatePresence>
-        {selectedImage && (
-          <SelectedImage
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-          />
-        )}
-      </AnimatePresence>
     </>
   )
 }
